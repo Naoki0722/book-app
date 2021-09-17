@@ -1,10 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { VFC } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { Button } from "@chakra-ui/button";
+import { ChakraProvider } from "@chakra-ui/react";
 
-function App() {
+const App: VFC = () => {
   return (
-    <div className="App">
+    <ChakraProvider>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,9 +20,10 @@ function App() {
         >
           Learn React
         </a>
+        <Button colorScheme="teal">テスト</Button>
       </header>
-    </div>
+    </ChakraProvider>
   );
-}
+};
 
 export default App;
