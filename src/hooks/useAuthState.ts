@@ -10,6 +10,8 @@ export const useAuthState = (): boolean => {
     onAuthStateChanged(firebaseAuth, (user) => {
       if (user) {
         setAuth(true);
+      } else {
+        setAuth(false);
       }
     });
   });

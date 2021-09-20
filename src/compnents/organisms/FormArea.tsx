@@ -12,6 +12,7 @@ type Props = {
   onClick: () => void;
   onEmailChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onPasswordChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean;
 };
 
 export const FormArea: VFC<Props> = (props) => {
@@ -23,6 +24,7 @@ export const FormArea: VFC<Props> = (props) => {
     onClick,
     onEmailChange,
     onPasswordChange,
+    isLoading,
   } = props;
   return (
     <Box
@@ -45,7 +47,7 @@ export const FormArea: VFC<Props> = (props) => {
           パスワード
         </Form>
       </Stack>
-      <MainButton margin={8} onClick={onClick}>
+      <MainButton margin={8} onClick={onClick} isLoading={isLoading}>
         {buttonMessage}
       </MainButton>
       <HStack>

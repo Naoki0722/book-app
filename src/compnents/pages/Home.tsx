@@ -1,9 +1,10 @@
 import { memo, VFC } from "react";
+import { Main } from "../templetes/Main";
 
 export const Home: VFC = memo(() => {
   return (
-    <div>
-      <p>Topページ</p>
-    </div>
+    <Main>
+      <p>トップページ</p>
+    </Main>
   );
 });

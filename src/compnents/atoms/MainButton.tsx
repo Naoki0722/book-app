@@ -5,10 +5,11 @@ type Props = {
   children: ReactNode;
   margin?: number;
   onClick: () => void;
+  isLoading: boolean;
 };
 
 export const MainButton: VFC<Props> = (props) => {
-  const { children, margin, onClick } = props;
+  const { children, margin, onClick, isLoading } = props;
   return (
     <Button
       backgroundColor="cyan.300"
@@ -19,6 +20,7 @@ export const MainButton: VFC<Props> = (props) => {
       display="block"
       mx="auto"
       my={margin}
+      isLoading={isLoading}
       onClick={onClick}
     >
       {children}
