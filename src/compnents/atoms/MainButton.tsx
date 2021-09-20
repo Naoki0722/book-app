@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-import { ReactNode, VFC } from "react";
+import { memo, ReactNode, VFC } from "react";
 
 type Props = {
   children: ReactNode;
@@ -8,7 +8,7 @@ type Props = {
   isLoading: boolean;
 };
 
-export const MainButton: VFC<Props> = (props) => {
+export const MainButton: VFC<Props> = memo((props) => {
   const { children, margin, onClick, isLoading } = props;
   return (
     <Button
@@ -26,4 +26,4 @@ export const MainButton: VFC<Props> = (props) => {
       {children}
     </Button>
   );
-};
+});

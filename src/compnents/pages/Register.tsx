@@ -1,11 +1,12 @@
-import { ChangeEvent, memo, useState, VFC } from "react";
+import { ChangeEvent, useState, VFC } from "react";
 import { FormArea } from "../organisms/FormArea";
 import { Main } from "../templetes/Main";
 import { firebaseAuth } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { useHistory } from "react-router";
 
-export const Register: VFC = memo(() => {
+export const Register: VFC = () => {
+  console.log("registerのレンダリング");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -45,4 +46,4 @@ export const Register: VFC = memo(() => {
       />
     </Main>
   );
-});
+};

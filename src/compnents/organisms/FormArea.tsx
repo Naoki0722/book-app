@@ -1,5 +1,5 @@
 import { Box, Stack, Text, HStack } from "@chakra-ui/layout";
-import { ChangeEvent, VFC } from "react";
+import { ChangeEvent, memo, VFC } from "react";
 import { Link } from "react-router-dom";
 import { MainButton } from "../atoms/MainButton";
 import { Form } from "../molecules/Form";
@@ -10,12 +10,12 @@ type Props = {
   linkMessage: string;
   link: string;
   onClick: () => void;
-  onEmailChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  onPasswordChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onEmailChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onPasswordChange: (e: ChangeEvent<HTMLInputElement>) => void;
   isLoading: boolean;
 };
 
-export const FormArea: VFC<Props> = (props) => {
+export const FormArea: VFC<Props> = memo((props) => {
   const {
     title,
     buttonMessage,
@@ -58,4 +58,4 @@ export const FormArea: VFC<Props> = (props) => {
       </HStack>
     </Box>
   );
-};
+});
