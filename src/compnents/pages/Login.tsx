@@ -1,11 +1,11 @@
-import { ChangeEvent, memo, useState, VFC } from "react";
+import { ChangeEvent, useState, VFC } from "react";
 import { FormArea } from "../organisms/FormArea";
 import { Main } from "../templetes/Main";
 import { firebaseAuth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { useHistory } from "react-router-dom";
 
-export const Login: VFC = memo(() => {
+export const Login: VFC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -14,9 +14,11 @@ export const Login: VFC = memo(() => {
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+
   const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
   const onClickLogin = () => {
     setLoading(true);
     signInWithEmailAndPassword(firebaseAuth, email, password)
@@ -28,8 +30,10 @@ export const Login: VFC = memo(() => {
       })
       .catch((error) => {
         alert(error.message);
+        setLoading(false);
       });
   };
+
   return (
     <Main>
       <FormArea
@@ -44,4 +48,4 @@ export const Login: VFC = memo(() => {
       />
     </Main>
   );
-});
+};

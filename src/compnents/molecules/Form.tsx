@@ -1,14 +1,14 @@
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
-import { ChangeEvent, ReactNode, VFC } from "react";
+import { ChangeEvent, memo, ReactNode, VFC } from "react";
 
 type Props = {
   children: ReactNode;
   type: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const Form: VFC<Props> = (props) => {
+export const Form: VFC<Props> = memo((props) => {
   const { children, type, onChange } = props;
   return (
     <FormControl>
@@ -16,4 +16,4 @@ export const Form: VFC<Props> = (props) => {
       <Input type={type} onChange={onChange} />
     </FormControl>
   );
-};
+});
