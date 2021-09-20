@@ -3,10 +3,12 @@ import { ReactNode, VFC } from "react";
 
 type Props = {
   children: ReactNode;
+  margin?: number;
+  onClick: () => void;
 };
 
 export const MainButton: VFC<Props> = (props) => {
-  const { children } = props;
+  const { children, margin, onClick } = props;
   return (
     <Button
       backgroundColor="cyan.300"
@@ -14,6 +16,10 @@ export const MainButton: VFC<Props> = (props) => {
       outline="none"
       borderRadius="20px"
       px={10}
+      display="block"
+      mx="auto"
+      my={margin}
+      onClick={onClick}
     >
       {children}
     </Button>
