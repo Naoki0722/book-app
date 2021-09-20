@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 export const Login: VFC = memo(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const history = useHistory();
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,9 +18,11 @@ export const Login: VFC = memo(() => {
     setPassword(e.target.value);
   };
   const onClickLogin = () => {
+    setLoading(true);
     signInWithEmailAndPassword(firebaseAuth, email, password)
       .then((res) => {
         console.log(res);
+        setLoading(false);
         alert("ログイン完了");
         history.push("/");
       })
@@ -37,6 +40,7 @@ export const Login: VFC = memo(() => {
         onClick={onClickLogin}
         onEmailChange={(e) => onEmailChange(e)}
         onPasswordChange={(e) => onPasswordChange(e)}
+        isLoading={isLoading}
       />
     </Main>
   );

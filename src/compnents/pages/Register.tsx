@@ -8,6 +8,7 @@ import { useHistory } from "react-router";
 export const Register: VFC = memo(() => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const history = useHistory();
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,9 +20,11 @@ export const Register: VFC = memo(() => {
   };
 
   const onClickRegister = () => {
+    setLoading(true);
     createUserWithEmailAndPassword(firebaseAuth, email, password)
       .then((res) => {
         console.log(res);
+        setLoading(false);
         alert("新規登録追加しました、メールを確認お願いします");
         history.push("/");
       })
@@ -38,6 +41,7 @@ export const Register: VFC = memo(() => {
         onClick={onClickRegister}
         onEmailChange={(e) => onEmailChange(e)}
         onPasswordChange={(e) => onPasswordChange(e)}
+        isLoading={isLoading}
       />
     </Main>
   );
