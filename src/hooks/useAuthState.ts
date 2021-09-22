@@ -1,3 +1,4 @@
+// このhooksは使わなくなったが、今後の知見として残しておく
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 

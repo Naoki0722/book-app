@@ -1,7 +1,6 @@
-import { memo, useRef, useState, VFC } from "react";
+import { memo, useContext, useRef, useState, VFC } from "react";
 import { Flex, Box, Spacer, Text } from "@chakra-ui/layout";
 import { Link, useHistory } from "react-router-dom";
-import { useAuthState } from "../../hooks/useAuthState";
 
 import { useDisclosure } from "@chakra-ui/hooks";
 import { firebaseAuth } from "../../config/firebase";
@@ -9,14 +8,16 @@ import { signOut } from "@firebase/auth";
 import { AlertLogout } from "../molecules/AlertLogout";
 import { DrawerMenu } from "../molecules/DrawerMenu";
 import { MenuIcon } from "../atoms/MenuIcon";
+import { UserContext } from "../../providers/UserProvider";
 
 export const Header: VFC = memo(() => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const auth = useAuthState();
+  const context = useContext(UserContext);
   const history = useHistory();
   const cancelRef = useRef<HTMLButtonElement>(null);
+  console.log(context.auth);
 
   const onCloseAlert = () => {
     setIsAlertOpen(false);
@@ -26,13 +27,15 @@ export const Header: VFC = memo(() => {
     setLoading(true);
     signOut(firebaseAuth)
       .then(() => {
-        alert("ログアウトしました");
         setLoading(false);
+        alert("ログアウトしました");
         history.push("/login");
       })
       .catch((error) => {
+        setLoading(false);
         alert(error.message);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -43,7 +46,7 @@ export const Header: VFC = memo(() => {
         </Text>
       </Box>
       <Spacer />
-      <MenuIcon auth={auth} onOpen={onOpen} />
+      <MenuIcon auth={context.auth} onOpen={onOpen} />
       <DrawerMenu
         isOpen={isOpen}
         onClose={onClose}
