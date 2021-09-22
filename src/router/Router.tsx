@@ -1,19 +1,18 @@
 import { memo, VFC } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { Home } from "../compnents/pages/Home";
 import { Login } from "../compnents/pages/Login";
 import { NotFound } from "../compnents/pages/NotFound";
 import { Register } from "../compnents/pages/Register";
 import { BookRoutes } from "./BookRoutes";
-import { useAuthState } from "../hooks/useAuthState";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const Router: VFC = memo(() => {
-  const auth = useAuthState();
   return (
     <Switch>
-      <Route path="/" exact>
-        {auth ? <Home /> : <Redirect to="/login" />}
-      </Route>
+      <PrivateRoute path="/" exact={true}>
+        <Home />
+      </PrivateRoute>
       <Route path="/login">
         <Login />
       </Route>
