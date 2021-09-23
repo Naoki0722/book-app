@@ -4,7 +4,6 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
 } from "@chakra-ui/modal";
@@ -40,9 +39,6 @@ export const DrawerMenu: VFC<Props> = memo((props) => {
               </Text>
             </Stack>
           </DrawerBody>
-          <DrawerFooter>
-            <p>てすと2</p>
-          </DrawerFooter>
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>
