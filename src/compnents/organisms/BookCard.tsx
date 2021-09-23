@@ -1,6 +1,6 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Stack, Text, Wrap, WrapItem } from "@chakra-ui/layout";
-import { useEffect, useState, VFC } from "react";
+import { memo, useEffect, useState, VFC } from "react";
 import { firebaseStore } from "../../config/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -9,10 +9,12 @@ type BookType = {
   title: string;
   article: string;
   description: string;
+  image: string;
 };
 
-export const BookCard: VFC = () => {
+export const BookCard: VFC = memo(() => {
   const [books, setBooks] = useState<BookType[]>([]);
+  console.log("レンダリング確認");
   const onClickDetail = () => {
     console.log("テスト");
   };
@@ -28,6 +30,7 @@ export const BookCard: VFC = () => {
           title: data.title,
           article: data.article,
           description: data.description,
+          image: data.image,
         });
         console.log(newBooks);
       });
@@ -49,7 +52,7 @@ export const BookCard: VFC = () => {
           >
             <Box>
               <Image
-                src="https://source.unsplash.com/random"
+                src={book.image}
                 height="150px"
                 width="260px"
                 objectFit="cover"
@@ -76,4 +79,4 @@ export const BookCard: VFC = () => {
       ))}
     </Wrap>
   );
-};
+});
