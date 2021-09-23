@@ -1,41 +1,15 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Stack, Text, Wrap, WrapItem } from "@chakra-ui/layout";
-import { memo, useEffect, useState, VFC } from "react";
-import { firebaseStore } from "../../config/firebase";
-import { collection, getDocs } from "firebase/firestore";
-
-type BookType = {
-  id: string;
-  title: string;
-  article: string;
-  description: string;
-  image: string;
-};
+import { memo, useEffect, VFC } from "react";
+import { useBookInfo } from "../../hooks/useBookInfo";
 
 export const BookCard: VFC = memo(() => {
-  const [books, setBooks] = useState<BookType[]>([]);
-  console.log("レンダリング確認");
+  const { getBooKInfo, books } = useBookInfo();
   const onClickDetail = () => {
     console.log("テスト");
   };
   useEffect(() => {
-    (async () => {
-      const querySnapshot = await getDocs(collection(firebaseStore, "books"));
-      const newBooks: BookType[] = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        console.log(data);
-        newBooks.push({
-          id: doc.id,
-          title: data.title,
-          article: data.article,
-          description: data.description,
-          image: data.image,
-        });
-        console.log(newBooks);
-      });
-      setBooks(newBooks);
-    })();
+    getBooKInfo();
   }, []);
   return (
     <Wrap p={{ base: 4, md: 10 }}>
