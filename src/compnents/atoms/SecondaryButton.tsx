@@ -10,7 +10,13 @@ type Props = {
 export const SecondaryButton: VFC<Props> = (props) => {
   const { children, onClick, isLoading } = props;
   return (
-    <Button colorScheme="red" ml={10} isLoading={isLoading} onClick={onClick}>
+    <Button
+      colorScheme="red"
+      ml={10}
+      isLoading={isLoading}
+      onClick={onClick}
+      _focus={{ outline: "none" }}
+    >
       {children}
     </Button>
   );

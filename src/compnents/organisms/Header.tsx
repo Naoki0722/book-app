@@ -34,8 +34,7 @@ export const Header: VFC = memo(() => {
       .catch((error) => {
         setLoading(false);
         alert(error.message);
-      })
-      .finally(() => setLoading(false));
+      });
   };
 
   return (

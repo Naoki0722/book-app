@@ -1,12 +1,15 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Stack, Text, Wrap, WrapItem } from "@chakra-ui/layout";
 import { memo, useEffect, VFC } from "react";
+import { useHistory } from "react-router";
 import { useBookInfo } from "../../hooks/useBookInfo";
 
 export const BookCard: VFC = memo(() => {
   const { getBooKInfo, books } = useBookInfo();
-  const onClickDetail = () => {
-    console.log("テスト");
+  const history = useHistory();
+
+  const onClickDetail = (id: string) => {
+    history.push(`/book/detail/${id}`);
   };
   useEffect(() => {
     getBooKInfo();
@@ -14,7 +17,7 @@ export const BookCard: VFC = memo(() => {
   return (
     <Wrap p={{ base: 4, md: 10 }}>
       {books.map((book) => (
-        <WrapItem key={book.id} p={4} onClick={onClickDetail}>
+        <WrapItem key={book.id} p={4} onClick={() => onClickDetail(book.id)}>
           <Box
             w="260px"
             h="300px"

@@ -22,6 +22,7 @@ export const MainButton: VFC<Props> = memo((props) => {
       my={margin}
       isLoading={isLoading}
       onClick={onClick}
+      _focus={{ outline: "none" }}
     >
       {children}
     </Button>
