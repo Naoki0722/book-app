@@ -29,6 +29,9 @@ export const DrawerMenu: VFC<Props> = memo((props) => {
               <Link to="/">
                 <Text>Home</Text>
               </Link>
+              <Link to="/book-regist">
+                <Text>Register</Text>
+              </Link>
               <Text
                 onClick={() => {
                   setIsAlertOpen(true);
