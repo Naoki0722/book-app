@@ -1,9 +1,11 @@
 import { Image } from "@chakra-ui/image";
 import { Box, Stack, Text } from "@chakra-ui/layout";
 import { VFC } from "react";
+import { useHistory } from "react-router";
 import { SecondaryButton } from "../atoms/SecondaryButton";
 
 type BookType = {
+  id: string;
   title: string;
   article: string;
   description: string;
@@ -17,6 +19,10 @@ type Props = {
 };
 
 export const BookDetailCard: VFC<Props> = ({ book, isLoading, onClick }) => {
+  const history = useHistory();
+  const onClickEdit = () => {
+    history.push(`/book/detail/${book.id}/edit`);
+  };
   return (
     <Box
       w="560px"
@@ -57,7 +63,14 @@ export const BookDetailCard: VFC<Props> = ({ book, isLoading, onClick }) => {
         </Box>
       </Stack>
       <Box textAlign="center">
-        <SecondaryButton onClick={onClick} isLoading={isLoading}>
+        <SecondaryButton
+          onClick={onClickEdit}
+          isLoading={isLoading}
+          color="green"
+        >
+          編集
+        </SecondaryButton>
+        <SecondaryButton onClick={onClick} isLoading={isLoading} color="red">
           削除
         </SecondaryButton>
       </Box>
