@@ -1,64 +1,23 @@
-import { useEffect, useState, VFC } from "react";
+import { useEffect, VFC } from "react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Stack, Text } from "@chakra-ui/layout";
 import { Textarea } from "@chakra-ui/textarea";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { firebaseStore } from "../../config/firebase";
 
 import { MainButton } from "../atoms/MainButton";
-import { useHistory } from "react-router";
-
-type BookType = {
-  id: string;
-  title: string;
-  article: string;
-  description: string;
-  image: string;
-};
+import { useBookDetail } from "../../hooks/useBookDetail";
+import { useBookEdit } from "../../hooks/useBookEdit";
 
 export const EditCard: VFC<{ id: string }> = ({ id }) => {
-  const [book, setBook] = useState({} as BookType);
-  const [isLoading, setIsLoading] = useState(false);
-  const history = useHistory();
+  console.log("レンダリング1");
+  const { book, setBook, getData } = useBookDetail(id);
+  const { editBookInfo, isLoading } = useBookEdit(book);
 
-  const onClickEdit = async () => {
-    try {
-      setIsLoading(true);
-      const updateData = doc(firebaseStore, "books", book.id);
-      await setDoc(updateData, {
-        title: book.title,
-        article: book.article,
-        description: book.description,
-        image: "https://source.unsplash.com/random",
-      });
-      console.log("Document written with ID: ", book.id);
-      alert("更新しました");
-      setIsLoading(false);
-      history.push("/");
-    } catch (error) {
-      alert(error);
-      setIsLoading(false);
-    }
+  const onClickEdit = () => {
+    editBookInfo();
   };
 
   useEffect(() => {
-    const getData = async () => {
-      const docRef = doc(firebaseStore, "books", id);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const newBook: BookType = {
-          id: id,
-          title: docSnap.data().title,
-          article: docSnap.data().article,
-          description: docSnap.data().description,
-          image: docSnap.data().image,
-        };
-        setBook(newBook);
-      } else {
-        console.log("No such document!");
-      }
-    };
     getData();
   }, []);
 

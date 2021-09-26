@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { firebaseStore } from "../config/firebase";
 
@@ -10,27 +10,32 @@ export type BookType = {
   image: string;
 };
 
-export const useBookDetail = (id: string): BookType => {
+type ReturnTypeData = {
+  getData: () => Promise<void>;
+  book: BookType;
+  setBook: Dispatch<SetStateAction<BookType>>;
+};
+
+export const useBookDetail = (id: string): ReturnTypeData => {
+  console.log("レンダリング2");
   const [book, setBook] = useState<BookType>({} as BookType);
 
-  useEffect(() => {
-    const getData = async () => {
-      const docRef = doc(firebaseStore, "books", id);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const newBook: BookType = {
-          id: id,
-          title: docSnap.data().title,
-          article: docSnap.data().article,
-          description: docSnap.data().description,
-          image: docSnap.data().image,
-        };
-        setBook(newBook);
-      } else {
-        console.log("No such document!");
-      }
-    };
-    getData();
-  }, []);
-  return book;
+  const getData = async () => {
+    const docRef = doc(firebaseStore, "books", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const newBook: BookType = {
+        id: id,
+        title: docSnap.data().title,
+        article: docSnap.data().article,
+        description: docSnap.data().description,
+        image: docSnap.data().image,
+      };
+      setBook(newBook);
+      console.log("get data");
+    } else {
+      console.log("No such document!");
+    }
+  };
+  return { book, setBook, getData };
 };
