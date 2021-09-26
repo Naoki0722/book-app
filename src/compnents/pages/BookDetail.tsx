@@ -1,4 +1,4 @@
-import { memo, VFC } from "react";
+import { memo, useEffect, VFC } from "react";
 import { useParams } from "react-router";
 
 import { Main } from "../templetes/Main";
@@ -8,7 +8,7 @@ import { BookDetailCard } from "../organisms/BookDetailCard";
 
 export const BookDetail: VFC = memo(() => {
   const { id } = useParams<{ id: string }>();
-  const book = useBookDetail(id);
+  const { book, getData } = useBookDetail(id);
   const { isLoading, bookDelete } = useBookDelete(id);
 
   const onclickDelete = () => {
@@ -17,6 +17,10 @@ export const BookDetail: VFC = memo(() => {
       bookDelete();
     }
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Main>
