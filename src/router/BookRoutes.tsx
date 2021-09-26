@@ -1,5 +1,6 @@
 import { Book } from "../compnents/pages/Book";
 import { BookDetail } from "../compnents/pages/BookDetail";
+import { BookEdit } from "../compnents/pages/BookEdit";
 
 export const BookRoutes = [
   {
@@ -9,7 +10,12 @@ export const BookRoutes = [
   },
   {
     path: "/detail/:id",
-    exact: false,
+    exact: true,
     children: <BookDetail />,
+  },
+  {
+    path: "/detail/:id/edit",
+    exact: false,
+    children: <BookEdit />,
   },
 ];

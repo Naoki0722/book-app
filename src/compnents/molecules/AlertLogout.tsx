@@ -45,10 +45,18 @@ export const AlertLogout: VFC<Props> = memo((props) => {
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            <Button ref={cancelRef} onClick={onCloseAlert}>
+            <Button
+              ref={cancelRef}
+              onClick={onCloseAlert}
+              _focus={{ outline: "none" }}
+            >
               いいえ
             </Button>
-            <SecondaryButton onClick={onClickLogout} isLoading={isLoading}>
+            <SecondaryButton
+              onClick={onClickLogout}
+              isLoading={isLoading}
+              color="red"
+            >
               はい
             </SecondaryButton>
           </AlertDialogFooter>

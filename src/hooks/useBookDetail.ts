@@ -3,6 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { firebaseStore } from "../config/firebase";
 
 export type BookType = {
+  id: string;
   title: string;
   article: string;
   description: string;
@@ -18,6 +19,7 @@ export const useBookDetail = (id: string): BookType => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const newBook: BookType = {
+          id: id,
           title: docSnap.data().title,
           article: docSnap.data().article,
           description: docSnap.data().description,

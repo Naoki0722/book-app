@@ -5,13 +5,14 @@ type Props = {
   children: ReactNode;
   onClick: () => void;
   isLoading: boolean;
+  color?: string;
 };
 
 export const SecondaryButton: VFC<Props> = (props) => {
-  const { children, onClick, isLoading } = props;
+  const { children, onClick, isLoading, color } = props;
   return (
     <Button
-      colorScheme="red"
+      colorScheme={color}
       ml={10}
       isLoading={isLoading}
       onClick={onClick}
