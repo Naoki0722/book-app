@@ -26,14 +26,14 @@ export const BookDetailCard: VFC<Props> = ({ book, isLoading, onClick }) => {
   return (
     <Box
       w="560px"
-      h="630px"
+      h="680px"
       bg="gray.100"
       borderRadius="10px"
       shadow="md"
       overflow="hidden"
       mx="auto"
       mt={10}
-      p={2}
+      p={6}
     >
       <Image
         height="300px"

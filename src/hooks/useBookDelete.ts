@@ -2,6 +2,7 @@ import { useState } from "react";
 import { doc, deleteDoc } from "firebase/firestore";
 import { firebaseStore } from "../config/firebase";
 import { useHistory } from "react-router";
+import { getStorage, ref } from "@firebase/storage";
 
 type ReturnType = {
   isLoading: boolean;
@@ -15,7 +16,10 @@ export const useBookDelete = (id: string): ReturnType => {
     try {
       setIsLoading(true);
       const bookDelete = async () => {
+        const storage = getStorage();
+        // const storageRef = ref(storage, `images/${image.name}`);
         await deleteDoc(doc(firebaseStore, "books", id));
+        // await delete();
         alert("Document successfully deleted!");
         setIsLoading(false);
         history.push("/");

@@ -7,44 +7,13 @@ import { Textarea } from "@chakra-ui/textarea";
 import { useBookRegister } from "../../hooks/useBookRegister";
 import { MainButton } from "../atoms/MainButton";
 
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
 
 export const RegisterCard: VFC = () => {
-  const { isLoading, titleRef, articleRef, descriptionRef, registBookInfo } =
+  const { isLoading, titleRef, articleRef, descriptionRef, uploadImage,registerImage } =
     useBookRegister();
-  const [image, setImage] = useState<File>();
 
   const onClickRegister = () => {
     registerImage();
-    registBookInfo();
-  };
-
-  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.target.files && setImage(e.target.files[0]);
-  };
-
-  const registerImage = () => {
-    if (image) {
-      const storage = getStorage();
-      const storageRef = ref(storage, `images/${image.name}`);
-      uploadBytesResumable(storageRef, image)
-        .then((snapshot) => {
-          console.log("Uploaded", snapshot.totalBytes, "bytes.");
-          console.log("File metadata:", snapshot.metadata);
-          getDownloadURL(snapshot.ref).then((url) => {
-            console.log("File available at", url);
-          });
-        })
-        .catch((error) => {
-          console.error("Upload failed", error);
-          // ...
-        });
-    }
   };
 
   return (
