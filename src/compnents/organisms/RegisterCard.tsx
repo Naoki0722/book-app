@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { useEffect, useState, VFC } from "react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Box, Stack, Text } from "@chakra-ui/layout";
@@ -7,12 +7,13 @@ import { Textarea } from "@chakra-ui/textarea";
 import { useBookRegister } from "../../hooks/useBookRegister";
 import { MainButton } from "../atoms/MainButton";
 
+
 export const RegisterCard: VFC = () => {
-  const { isLoading, titleRef, articleRef, descriptionRef, registBookInfo } =
+  const { isLoading, titleRef, articleRef, descriptionRef, uploadImage,registerImage } =
     useBookRegister();
 
   const onClickRegister = () => {
-    registBookInfo();
+    registerImage();
   };
 
   return (
@@ -30,6 +31,10 @@ export const RegisterCard: VFC = () => {
         本の登録
       </Text>
       <Stack spacing={8}>
+        <FormControl px={10}>
+          <FormLabel>画像</FormLabel>
+          <input type="file" id="file" onChange={uploadImage} />
+        </FormControl>
         <FormControl px={10}>
           <FormLabel>本のタイトル</FormLabel>
           <Input type="text" ref={titleRef} />
