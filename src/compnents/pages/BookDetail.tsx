@@ -9,7 +9,7 @@ import { BookDetailCard } from "../organisms/BookDetailCard";
 export const BookDetail: VFC = memo(() => {
   const { id } = useParams<{ id: string }>();
   const { book, getData } = useBookDetail(id);
-  const { isLoading, bookDelete } = useBookDelete(id);
+  const { isLoading, bookDelete } = useBookDelete(id,book.imageName);
 
   const onclickDelete = () => {
     const isDeleted = confirm("本当に削除しますか？");

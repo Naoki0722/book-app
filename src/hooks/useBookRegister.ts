@@ -28,7 +28,6 @@ export const useBookRegister = (): ReturnTypeData => {
 
   const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.target.files && setImage(e.target.files[0]);
-    console.log('fdsa');
   }
 
   const registerImage = async () => {
@@ -41,7 +40,7 @@ export const useBookRegister = (): ReturnTypeData => {
           console.log("File metadata:", snapshot.metadata);
           getDownloadURL(snapshot.ref).then((url) => {
             console.log("File available at", url);
-            registBookInfo(url);
+            registBookInfo(url,image.name);
           });
         })
         .catch((error) => {
@@ -50,7 +49,7 @@ export const useBookRegister = (): ReturnTypeData => {
     }
   };
 
-  const registBookInfo = async (url: string) => {
+  const registBookInfo = async (url: string, name: string) => {
     try {
       setLoading(true);
       const docRef = await addDoc(collection(firebaseStore, "books"), {
@@ -58,6 +57,7 @@ export const useBookRegister = (): ReturnTypeData => {
         article: articleRef.current?.value,
         description: descriptionRef.current?.value,
         image: url,
+        imageName: name,
       });
       console.log("Document written with ID: ", docRef.id);
       alert("登録しました");

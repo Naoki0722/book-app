@@ -10,6 +10,7 @@ type BookType = {
   article: string;
   description: string;
   image: string;
+  imageName: string;
 };
 
 type Props = {

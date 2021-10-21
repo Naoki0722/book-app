@@ -8,6 +8,7 @@ export type BookType = {
   article: string;
   description: string;
   image: string;
+  imageName: string;
 };
 
 type ReturnTypeData = {
@@ -30,6 +31,7 @@ export const useBookDetail = (id: string): ReturnTypeData => {
         article: docSnap.data().article,
         description: docSnap.data().description,
         image: docSnap.data().image,
+        imageName: docSnap.data().imageName,
       };
       setBook(newBook);
       console.log("get data");
